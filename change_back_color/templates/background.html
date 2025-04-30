@@ -6,13 +6,13 @@
     <title>Document</title>
 </head>
 <body style="background-color: {{ cor }};">
-    {% if cor %}
-        <h1>Você escolheu Amarelo!!!</h1>
-    {% else%}
+    {% if cor%}
+        <h1>Você escolheu AMARELO!!!</h1>
+    {% else %}
         <h1>Sai daqui você não escolheu amarelo</h1>
-        <form action="{{ url_for(index )}}">
+        <form action="{{ url_for('index')}}">
             <button>Voltar</button>
         </form>
-    {% endif %}
+    {% endif %}    
 </body>
 </html>

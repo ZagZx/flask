@@ -1,0 +1,29 @@
+* {
+    margin: 0;
+    box-sizing: border-box;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+a{
+    text-decoration: none;
+    font-weight: bold;
+    color:  rgb(36, 0, 95);
+}
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2em;
+    flex-direction: column;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgb(59, 58, 58);
+}
+header{
+    position: absolute;
+    top: 1em;
+    background-color: rgb(99, 98, 98);
+    padding: 0.5em;
+    border: 2px solid rgb(102, 3, 102);
+    border-radius: 1em;
+    box-shadow: 0.5em 0.3em 0.5em 0 rgb(90, 1, 90);
+}

@@ -4,10 +4,9 @@ pref_route = Blueprint('preferencias', __name__)
 
 @pref_route.route('/')
 def pref_page():
-    # response = make_response()
-    # response.set_cookie('nome', request.args.get('nome'))
-    # response.set_cookie('genero', request.args.get('genero'))
-    # response.set_cookie('notificacoes', request.args.get('notificacoes'))
+    nome = request.cookies.get('nome')
+    genero = request.cookies.get('genero')
+    notificacoes = request.cookies.get('notificacoes')
     
-    return render_template('preferencias.html')
+    return render_template('preferencias.html', nome = nome, genero = genero, notificacoes = notificacoes)
 

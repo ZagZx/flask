@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, make_response, request
+from flask import Blueprint, render_template
 
 cadastro_route = Blueprint('cadastro', __name__)
 

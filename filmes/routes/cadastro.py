@@ -1,13 +1,6 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, make_response, request
 
 cadastro_route = Blueprint('cadastro', __name__)
-
-'''
-    /cadastro (GET) - exibe formulario de cadastro
-    /
-
-
-'''
 
 @cadastro_route.route('/')
 def cadastro_page():

@@ -3,17 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Filmes</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/main.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/home.css') }}">
-
 </head>
 <body>
     <a href="{{ url_for('cadastro.cadastro_page') }}">
         <div class="botao">Cadastrar preferência</div>
     </a>
-    <a href="{{ url_for('cadastro.cadastro_page') }}">
-        <div class="botao">Cadastrar preferência</div>
+    <a href="{{ url_for('preferencias.pref_page') }}">
+        <div class="botao">Visualizar preferência</div>
     </a>
 </body>
 </html>

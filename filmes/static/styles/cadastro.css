@@ -1,9 +1,0 @@
-form{
-    padding: 2em;
-    border: 2px solid rgb(102, 3, 102);
-    border-radius: 0.5em;
-    background-color: rgb(99, 98, 98);
-    display: flex;
-    flex-direction: column;
-    gap: 0.5em;
-}

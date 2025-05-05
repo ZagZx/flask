@@ -5,8 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/main.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles/cadastro.css') }}">
-
 </head>
 <body>
     <header>
@@ -14,20 +12,22 @@
     </header>
     <main>
         <form method="post"  action="{{ url_for('cookies.salvar_preferencias') }}">
-            <span>Nome de usuário</span>
-            <input type="text" name="nome">
-            <span>Gênero favorito</span>
-            <select name="genero" id="">
-                <option value="" disabled selected>Selecione um Gênero</option>
-                <option value="Ação">Ação</option>
-                <option value="Comédia">Comédia</option>
-                <option value="Ficção">Ficção</option>
-                <option value="Terror">Terror</option>
-                <option value="Drama">Drama</option>
-            </select>
-            <span><input type="checkbox" name="notificacoes" id=""></span>
-            
-            <button type="submit">Enviar</button>
+            <div class="container">
+                <span>Nome de usuário</span>
+                <input type="text" name="nome" required>
+                <span>Gênero favorito</span>
+                <select name="genero" id="" required>
+                    <option value="" selected>Selecione um Gênero</option>
+                    <option value="Ação">Ação</option>
+                    <option value="Comédia">Comédia</option>
+                    <option value="Ficção">Ficção</option>
+                    <option value="Terror">Terror</option>
+                    <option value="Drama">Drama</option>
+                </select>
+                <span>Deseja receber notificações por email? <input type="checkbox" name="notificacoes" id=""></span>
+                
+                <button type="submit">Enviar</button>
+            </div>
         </form>
     </main>
 </body>

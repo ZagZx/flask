@@ -7,8 +7,27 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/main.css') }}">
 </head>
 <body>
-    {{ nome }}
-    {{ genero }}
-    {{ notificacoes }}
+    {% if nome and genero and notificacoes %}
+        <header>
+            <h1>Suas preferências</h1>
+        </header>
+        <main>
+            <div class="container">
+                <ul style="list-style: none; padding: 0;">
+                    <li><strong>Nome de usuário: </strong>{{ nome }}</li>
+                    <li><strong>Gênero Favorito: </strong> {{ genero }}</li>
+                    <li><strong>Irá receber notificações? </strong> {{ notificacoes }}</li>
+                </ul>
+            </div>
+        </main>
+        
+    {% else %}
+        <header>
+            <h1>Você não está cadastrado</h1>
+        </header>
+        <a href="{{ url_for('cadastro.cadastro_page') }}">
+            <div class="botao">Cadastre-se</div>
+        </a>
+    {% endif %}
 </body>
 </html>

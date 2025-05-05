@@ -3,9 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Recomendações</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/main.css') }}">
 </head>
 <body>
-    
+    <header><h1>Recomendações</h1></header>
+    <main>
+        {% if recomendacoes %}
+            <div class="container">
+                <h2>Filmes</h2>
+                <ul>
+                {% for filme in recomendacoes%}
+                    <li>{{ filme }}</li>
+                {% endfor %}
+                </ul>    
+            </div>
+            
+        {% else %}
+            <form action="">
+                <div class="container">
+                    <select name="genero" required>
+                        <option value="" selected>Gênero</option>
+                        <option value="acao">Ação</option>
+                        <option value="drama">Drama</option>
+                        <option value="comedia">Comédia</option>
+                        <option value="ficcao">Ficção</option>
+                        <option value="terror">Terror</option>
+                    </select>
+                    <button>Ver recomendações</button>
+                </div>
+            </form>
+        {% endif%}
+    </main>
 </body>
 </html>

@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, request
 
 recomendar_route = Blueprint('recomendar', __name__)
 
@@ -41,4 +41,10 @@ def recomendar_page():
             "Invocação do Mal"
         ]
     }
-    return render_template('')
+    recomendacoes = None
+    if request.args:
+        genero = request.args.get('genero')
+        recomendacoes = filmes[genero]
+    
+
+    return render_template('recomendacoes.html', recomendacoes = recomendacoes)

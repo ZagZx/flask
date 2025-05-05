@@ -13,9 +13,9 @@
     <main>
         <form method="post"  action="{{ url_for('cookies.salvar_preferencias') }}">
             <div class="container">
-                <span>Nome de usuário</span>
+                <label for="nome">Nome de usuário</label>
                 <input type="text" name="nome" required>
-                <span>Gênero favorito</span>
+                <label for="genero">Gênero favorito</label>
                 <select name="genero" id="" required>
                     <option value="" selected>Selecione um Gênero</option>
                     <option value="Ação">Ação</option>
@@ -24,7 +24,7 @@
                     <option value="Terror">Terror</option>
                     <option value="Drama">Drama</option>
                 </select>
-                <span>Deseja receber notificações por email? <input type="checkbox" name="notificacoes" id=""></span>
+                <label for="notificacoes">Deseja receber notificações por email? <input type="checkbox" name="notificacoes" id=""></label>
                 
                 <button type="submit">Enviar</button>
             </div>

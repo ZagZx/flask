@@ -41,10 +41,19 @@ def recomendar_page():
             "Invocação do Mal"
         ]
     }
+    acentuacao = {
+        'acao': 'Ação',
+        'terror': 'Terror',
+        'ficcao': 'Ficção',
+        'comedia': 'Comédia',
+        'drama': 'Drama'
+    }
     recomendacoes = None
+    genero_tratado = None
+
     if request.args:
         genero = request.args.get('genero')
         recomendacoes = filmes[genero]
-    
+        genero_tratado = acentuacao[genero]
 
-    return render_template('recomendacoes.html', recomendacoes = recomendacoes)
+    return render_template('recomendacoes.html', recomendacoes = recomendacoes, traducao = genero_tratado)

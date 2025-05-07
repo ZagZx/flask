@@ -1,4 +1,4 @@
-from flask import Blueprint, request, make_response, url_for,redirect
+from flask import Blueprint, request, make_response, url_for, redirect
 
 cookies_route = Blueprint('cookies', __name__)
 

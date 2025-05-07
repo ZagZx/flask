@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, make_response, request
+from flask import Blueprint, render_template, request
 
 pref_route = Blueprint('preferencias', __name__)
 

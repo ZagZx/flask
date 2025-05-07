@@ -11,7 +11,7 @@
     <main>
         {% if recomendacoes %}
             <div class="container">
-                <h2>Filmes de {{ traducao }}</h2>
+                <h2>Filmes de {{ favorito }}</h2>
                 <ul>
                 {% for filme in recomendacoes%}
                     <li>{{ filme }}</li>
@@ -24,11 +24,14 @@
                 <div class="container">
                     <select name="genero" required>
                         <option value="" selected>Gênero</option>
-                        <option value="acao">Ação</option>
-                        <option value="drama">Drama</option>
-                        <option value="comedia">Comédia</option>
-                        <option value="ficcao">Ficção</option>
-                        <option value="terror">Terror</option>
+                        <option value="Ação">Ação</option>
+                        <option value="Comédia">Comédia</option>
+                        <option value="Drama">Drama</option>
+                        <option value="Ficção">Ficção</option>
+                        <option value="Terror">Terror</option>
+                        {% if favorito %}
+                            <option value="favorito" selected>Meu gênero favorito</option>
+                        {% endif %}
                     </select>
                     <button>Ver recomendações</button>
                 </div>

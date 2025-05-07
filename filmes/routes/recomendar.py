@@ -5,35 +5,35 @@ recomendar_route = Blueprint('recomendar', __name__)
 @recomendar_route.route('/')
 def recomendar_page():
     filmes = {
-        "acao": [
+        "Ação": [
             "Vingadores: Ultimato", 
             "Mad Max: Estrada da Fúria", 
             "John Wick", 
             "Duro de Matar", 
             "Gladiador"
         ],
-        "comedia": [
+        "Comédia": [
             "O Máskara", 
             "Superbad - É Hoje", 
             "A Mulher Invisível", 
             "As Branquelas", 
             "Apertem os Cintos... O Piloto Sumiu!"
         ],
-        "drama": [
+        "Drama": [
             "A Espera de um Milagre", 
             "O Poderoso Chefão", 
             "Forrest Gump", 
             "Os 12 Macacos", 
             "O Clube da Luta"
         ],
-        "ficcao": [
+        "Ficção": [
             "Interestelar", 
             "Blade Runner 2049", 
             "Matrix", 
             "2001: Uma Odisseia no Espaço", 
             "Star Wars: Uma Nova Esperança"
         ],
-        "terror": [
+        "Terror": [
             "O Iluminado", 
             "Hereditary", 
             "A Noite dos Mortos-Vivos", 
@@ -41,19 +41,15 @@ def recomendar_page():
             "Invocação do Mal"
         ]
     }
-    acentuacao = {
-        'acao': 'Ação',
-        'terror': 'Terror',
-        'ficcao': 'Ficção',
-        'comedia': 'Comédia',
-        'drama': 'Drama'
-    }
     recomendacoes = None
-    genero_tratado = None
+    genero = None
 
-    if request.args:
+    if not request.args: # pagina recomendar/, sem string de consulta
+        genero = request.cookies.get('genero')
+
+    else: # depois de selecionar o formulário
         genero = request.args.get('genero')
+        if genero == 'favorito':
+            genero = request.cookies.get('genero')
         recomendacoes = filmes[genero]
-        genero_tratado = acentuacao[genero]
-
-    return render_template('recomendacoes.html', recomendacoes = recomendacoes, traducao = genero_tratado)
+    return render_template('recomendacoes.html', recomendacoes = recomendacoes, favorito=genero)

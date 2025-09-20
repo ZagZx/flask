@@ -3,7 +3,7 @@
 - MySQL
 
 ## Instruções
-**Todos os passos adiante devem ser realizados na pasta raiz do projeto** (miniprojeto-sqlalchemy/)
+**Todos os passos adiante devem ser realizados na pasta raiz do projeto** (loja/)
 
 <details>
   <summary>Linux</summary>

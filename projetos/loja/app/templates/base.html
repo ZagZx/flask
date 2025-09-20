@@ -1,11 +1,35 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Loja Bacana</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <style>
+        *{
+            box-sizing: border-box;
+        }
+        label{
+            user-select: none;
+        }
+    </style>
+
+    {% block head %}{% endblock head %}
 </head>
-<body>
-    
+<body class="bg-slate-900 text-white min-h-screen flex flex-col">
+    <header class="bg-slate-800 p-2">
+        <nav class="flex justify-around">
+            <div class="flex flex-row gap-3">
+                <a class="hover:text-rose-500" href="{{ url_for('index') }}">Início</a>
+            </div>
+            <div class="flex flex-row gap-3">
+                <a class="hover:text-rose-500" href="{{ url_for('register') }}">Cadastro</a>
+                <a class="hover:text-rose-500" href="{{ url_for('login') }}">Login</a>
+                <a class="hover:text-rose-500" href="">Logout</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="flex justify-center items-center flex-grow">{% block main %}{% endblock main %}</main>
 </body>
 </html>

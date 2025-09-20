@@ -1,4 +1,3 @@
-from . import Base
 from app import db
 
 from sqlalchemy import (

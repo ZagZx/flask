@@ -16,7 +16,7 @@ def create_app(drop_tables:bool = False):
     
     db.init_app(app)
     
-    from models import User
+    from .models import User
 
     with app.app_context():
         if drop_tables:
@@ -39,19 +39,17 @@ def create_app(drop_tables:bool = False):
     def load_user(user_id):
         return User.query.get(user_id)
 
-
-    # from .routes.auth import auth_bp
-    # from .routes.manga import manga_bp
-    # from .routes.proxy import proxy_bp
-    # from .routes.index import index_bp
-    # from .routes.search import search_bp
-    # from .routes.user import user_bp
+    @app.route('/')
+    def index():
+        return render_template('index.html')
     
-    # app.register_blueprint(auth_bp)
-    # app.register_blueprint(manga_bp)
-    # app.register_blueprint(proxy_bp)
-    # app.register_blueprint(index_bp)
-    # app.register_blueprint(search_bp)
-    # app.register_blueprint(user_bp)
+    @app.route('/login', methods=['GET', 'POST'])
+    def login():
+        return render_template('auth/login.html')
+    
+    @app.route('/register', methods=['GET', 'POST'])
+    def register():
+        return render_template('auth/register.html')
+    
 
     return app

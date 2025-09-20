@@ -77,6 +77,20 @@ def create_app(drop_tables:bool = False):
     
     @app.route('/login', methods=['GET', 'POST'])
     def login():
+        if request.method == 'POST':
+            email = request.form.get('email')
+            password = request.form.get('password')
+
+            user:User = User.query.filter_by(email=email).first()
+            
+            if user:            
+                if check_password_hash(user.password_hash, password):
+                    login_user(user)
+                    return redirect(url_for('index'))
+                else:
+                    flash('Senha incorreta', 'error')
+            else:
+                flash('O usuário não está cadastrado', 'error')
         return render_template('auth/login.html')
     
     @app.route('/register', methods=['GET', 'POST'])
@@ -108,7 +122,8 @@ def create_app(drop_tables:bool = False):
     
     @app.route('/logout', methods=['GET', 'POST'])
     def logout():
-        pass
+        logout_user()
+        return redirect(url_for('index'))
     
 
     return app

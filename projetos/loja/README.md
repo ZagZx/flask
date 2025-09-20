@@ -1,3 +1,9 @@
+## Integrantes
+- Pedro Victor Dantas Azevedo
+- Pedro Victor Dantas Azevedo
+- Pedro Victor Dantas Azevedo
+- Pedro Victor Dantas Azevedo
+
 ## Dependências
 - Python
 - MySQL

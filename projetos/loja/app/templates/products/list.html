@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block main %}
+<div class="bg-slate-800 container mx-auto px-4 py-8 rounded"> {# container #}
+    <h1 class="text-3xl font-bold mb-8 text-center">Nossos Produtos</h1>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {% for product in products %}
+        <div class="bg-slate-700 rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 p-3 space-y-2"> {# card #}
+            <ul>
+                <li class="text-2xl font-semibold text-center">{{ product.name }}</li>
+                <li class="text-xl font-bold">R$ {{ product.price }}</li>
+                <li><span class="font-bold text-xl">Descrição: </span>{{ product.description }}</li>
+            </ul>
+            <div class="container grid grid-cols-2 gap-3">
+                <a href="{{ url_for('edit_product', id=product.id) }}" class="bg-rose-500 rounded cursor-pointer py-2 text-center">Editar</a>
+                <a href="{{ url_for('delete_product', id=product.id) }}" class="bg-rose-500 rounded cursor-pointer py-2 text-center">Excluir</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock main %}

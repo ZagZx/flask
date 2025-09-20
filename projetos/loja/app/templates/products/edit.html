@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block head %}
+<script src="{{ url_for('static', filename='scripts/priceFilter.js') }}"></script>
+{% endblock head %}
+
+{% block main %}
+<form action="{{ url_for('edit_product', id=product.id) }}" method="post">
+    <div class="flex flex-col gap-2 bg-slate-800 w-96 p-3 rounded">
+        <label class="font-bold" for="name">Nome do produto</label>
+        <span class="bg-slate-700 rounded">{{ product.name }}</span>
+        <input id="name" name="name" type="text" class="bg-slate-700 rounded outline-none border border-slate-600 focus:border-rose-500 p-2" >
+        
+        <label class="font-bold" for="price">Preço</label>
+        <span class="bg-slate-700 rounded">{{ product.price }}</span>
+        <input id="price" name="price" type="text" class="bg-slate-700 rounded outline-none border border-slate-600 focus:border-rose-500 p-2" >
+
+        <label class="font-bold" for="description">Descrição</label>
+        <span class="bg-slate-700 rounded">{{ product.description }}</span>
+        <textarea id="description" name="description" class="bg-slate-700 rounded outline-none border border-slate-600 focus:border-rose-500 p-2"></textarea>
+        
+        <br>
+        
+        <button class="bg-rose-700 p-2 rounded cursor-pointer" type="submit">Salvar</button>
+
+        {% include "components/messages.html" %}
+    </div>
+</form>
+{% endblock main %}
+

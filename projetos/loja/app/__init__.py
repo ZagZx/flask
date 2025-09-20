@@ -17,7 +17,7 @@ from flask_login import (
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_sqlalchemy import SQLAlchemy
 import pymysql
-
+from decimal import Decimal
 
 login_manager = LoginManager()
 db = SQLAlchemy()
@@ -49,12 +49,14 @@ def create_app(drop_tables:bool = False):
     from .models import User, Product
 
     with app.app_context():
+        print(drop_tables)
         if drop_tables:
             db.drop_all()
             db.create_all()     
         else:
             db.create_all()
-        
+        db.session.commit()
+
         if not User.query.all():
             db.session.add(User(name='ZagZ', email='zezi@example.com', password_hash=generate_password_hash('123')))
             db.session.commit()
@@ -70,13 +72,9 @@ def create_app(drop_tables:bool = False):
 
     @app.route('/')
     def index():
-        # users:list[User] = User.query.all()
-        # for user in users:
-        #     print(user.name, user.email)
-
-        products:list[Product] = Product.query.all()
-        for product in products:
-            print(product.name, product.price, product.description)
+        users:list[User] = User.query.all()
+        for user in users:
+            print(user.name, user.email)
         
         return render_template('index.html')
     
@@ -91,10 +89,51 @@ def create_app(drop_tables:bool = False):
 
             # print(name, float(price), description)
 
-            product = Product(name=name, price=price, description=description)
+            product = Product(name=name, price=Decimal(price), description=description)
             db.session.add(product)
             db.session.commit()
         return render_template('products/add.html')
+    
+    @app.route('/products')
+    @login_required
+    def list_products():
+        products:list[Product] = Product.query.all()
+        for product in products:
+            print(product.name, product.price, product.description)
+
+        return render_template('products/list.html', products=products)
+    
+    @app.route('/products/edit/<id>', methods=['GET', 'POST'])
+    @login_required
+    def edit_product(id):
+        product:Product = Product.query.get(id)
+
+        if request.method == 'POST':
+            name = request.form.get('name')
+            description = request.form.get('description')
+            price = request.form.get('price')
+            price = price.replace(',', '.')
+            
+            if name:
+                product.name = name
+            if price:
+                product.price = Decimal(price)
+            if description:
+                product.description = description
+            db.session.commit()
+            
+            return redirect(url_for('list_products'))
+        return render_template('products/edit.html', product=product)
+
+    @app.route('/products/delete/<id>')
+    @login_required
+    def delete_product(id):
+        product = Product.query.get(id)
+        
+        db.session.delete(product)
+        db.session.commit()
+
+        return redirect(url_for('list_products'))
     
     @app.route('/login', methods=['GET', 'POST'])
     def login():
@@ -141,7 +180,8 @@ def create_app(drop_tables:bool = False):
                 return render_template('auth/register.html')
         return render_template('auth/register.html')
     
-    @app.route('/logout', methods=['GET', 'POST'])
+    @app.route('/logout')
+    @login_required
     def logout():
         logout_user()
         return redirect(url_for('index'))

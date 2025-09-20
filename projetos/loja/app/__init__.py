@@ -10,7 +10,8 @@ from flask import (
 from flask_login import (
     LoginManager, 
     login_user, 
-    logout_user, 
+    logout_user,
+    login_required, 
     current_user
 )
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -45,7 +46,7 @@ def create_app(drop_tables:bool = False):
     
     db.init_app(app)
     
-    from .models import User
+    from .models import User, Product
 
     with app.app_context():
         if drop_tables:
@@ -61,7 +62,7 @@ def create_app(drop_tables:bool = False):
             print(f'\n{user.id} {user.name} {user.email}\n')
 
     login_manager.init_app(app)
-    login_manager.login_view = 'auth.login'
+    login_manager.login_view = 'login'
     @login_manager.user_loader
     def load_user(user_id):
         return User.query.get(user_id)
@@ -69,11 +70,31 @@ def create_app(drop_tables:bool = False):
 
     @app.route('/')
     def index():
-        users:list[User] = User.query.all()
-        for user in users:
-            print(user.name, user.email)
+        # users:list[User] = User.query.all()
+        # for user in users:
+        #     print(user.name, user.email)
+
+        products:list[Product] = Product.query.all()
+        for product in products:
+            print(product.name, product.price, product.description)
         
         return render_template('index.html')
+    
+    @app.route('/products/add', methods=['GET', 'POST'])
+    @login_required
+    def add_product():
+        if request.method == 'POST':
+            name = request.form.get('name')
+            description = request.form.get('description')
+            price = request.form.get('price')
+            price = price.replace(',', '.')
+
+            # print(name, float(price), description)
+
+            product = Product(name=name, price=price, description=description)
+            db.session.add(product)
+            db.session.commit()
+        return render_template('products/add.html')
     
     @app.route('/login', methods=['GET', 'POST'])
     def login():

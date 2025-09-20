@@ -24,6 +24,8 @@
             </div>
             <div class="flex flex-row gap-3">
                 {% if current_user.id %}
+                    <span>{{ current_user.name }}</span>
+                    <span>|</span>
                     <a class="hover:text-rose-500" href="{{ url_for('logout') }}">Sair</a>
                 {% else %}
                     <a class="hover:text-rose-500" href="{{ url_for('register') }}">Cadastro</a>

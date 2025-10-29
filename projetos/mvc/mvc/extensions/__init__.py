@@ -1,8 +1,7 @@
 from flask_login import LoginManager
 from sqlalchemy.orm import DeclarativeBase, sessionmaker
 from sqlalchemy import create_engine
-
-DATABASE = "sqlite:///database.db"
+from mvc.config import DATABASE
 
 engine = create_engine(DATABASE)
 Session = sessionmaker(engine)

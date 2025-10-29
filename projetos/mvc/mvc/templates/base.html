@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MVC</title>
+    {% block head %}{% endblock head %}
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="{{ url_for('index') }}">Início</a>
+        </nav>
+        <nav>
+            {% if current_user.is_authenticated %}
+                <a href="{{ url_for('user.logout') }}">Sair</a>
+            {% else %}
+                <a href="{{ url_for('user.login') }}">Entrar</a>
+                <a href="{{ url_for('user.cadastro') }}">Cadastrar-se</a>
+            {% endif %}
+        </nav>
+    </header>
+    <main>{% block main %}{% endblock main %}</main>
+    <footer>{% block footer %}{% endblock footer %}</footer>
+</body>
+</html>

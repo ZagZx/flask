@@ -10,3 +10,7 @@ init_db()
 @app.route('/')
 def index():
     return render_template('index.html')
+
+from mvc.controllers import user_bp
+
+app.register_blueprint(user_bp)

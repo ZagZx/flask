@@ -27,9 +27,9 @@ def sell():
 @product_bp.route('/meus_pedidos')
 @login_required
 def my_orders():
-    return
+    return render_template('products/my_orders.html')
 
 @product_bp.route('/minhas_vendas')
 @login_required
 def my_sales():
-    return
+    return render_template('products/my_sales.html')

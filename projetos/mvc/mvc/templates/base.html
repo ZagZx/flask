@@ -23,23 +23,34 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url_for('index') }}">Início</a>
                     </li>
+                    {% if current_user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('index') }}">Meus Pedidos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('index') }}">Minhas Vendas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('product.sell') }}">Vender Produto</a>
+                    </li>
+                    {% endif %}
                 </ul>
 
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                     {% if current_user.is_authenticated %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Olá, {{ current_user.username }}</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ url_for('user.logout') }}">Sair</a>
-                        </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Olá, {{ current_user.username }}</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('user.logout') }}">Sair</a>
+                    </li>
                     {% else %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ url_for('user.login') }}">Entrar</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ url_for('user.register') }}">Cadastrar-se</a>
-                        </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('user.login') }}">Entrar</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('user.register') }}">Cadastrar-se</a>
+                    </li>
                     {% endif %}
                 </ul>
             </div>

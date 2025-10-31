@@ -3,10 +3,10 @@ from flask_login import login_required, logout_user, login_user
 from werkzeug.security import generate_password_hash
 
 from mvc.models import User
-from mvc.extensions import Session
+from mvc.extensions import db
 
 
-user_bp = Blueprint('user', __name__, url_prefix='/usuario')
+user_bp = Blueprint('user', __name__)#, url_prefix='/usuario'
 
 @user_bp.route('/sair')
 @login_required
@@ -19,10 +19,9 @@ def login():
     if request.method == 'POST':
         email = request.form.get('email')
         password = request.form.get('password')
-        
-        with Session() as session:
-            user:User = session.query(User).filter_by(email=email).first()
-        
+
+        user:User = User.query.filter_by(email=email).first()
+        print(user)
         if user:
             if user.check_password(password):
                 login_user(user)
@@ -37,18 +36,19 @@ def register():
         email = request.form.get('email')
         password = request.form.get('password')
         
-        with Session() as session:
-            user:User = session.query(User).filter_by(email=email).first()
         
-            if user:
-                flash(f'O email {email} já está cadastrado','error')
-                return redirect(url_for('user.register'))
-            
-            if username and email and password:
-                user = User(username=username, email=email, password_hash=generate_password_hash(password))
-                session.add(user)
-                session.commit()
-            else:
-                flash('Preencha todos os dados do formulário', 'error')
+        user:User = User.query.filter_by(email=email).first()
+    
+        if user:
+            flash(f'O email {email} já está cadastrado','error')
+            return redirect(url_for('user.register'))
+        
+        if username and email and password:
+            user = User(username=username, email=email, password_hash=generate_password_hash(password))
+            db.session.add(user)
+            db.session.commit()
+            return redirect(url_for('user.login'))
+        else:
+            flash('Preencha todos os dados do formulário', 'error')
         
     return render_template('auth/register.html')

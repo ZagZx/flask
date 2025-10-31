@@ -1,24 +1,21 @@
 from flask_login import LoginManager
-from sqlalchemy.orm import DeclarativeBase, sessionmaker
-from sqlalchemy import create_engine
-from mvc.config import DATABASE
+from flask import Flask
+# from sqlalchemy.orm import DeclarativeBase, sessionmaker
+# from sqlalchemy import create_engine
+from flask_sqlalchemy import SQLAlchemy
+# from mvc.config import DATABASE
 
-engine = create_engine(DATABASE, echo=True)
-Session = sessionmaker(engine)
+db = SQLAlchemy()
 
-class Base(DeclarativeBase):
-    pass
-
-def init_db():
+def init_db(app: Flask):
     import mvc.models
-    Base.metadata.create_all(engine)
-
+    with app.app_context():
+        db.create_all()
 
 login_manager = LoginManager()
 @login_manager.user_loader
 def load_user(user_id):
     from mvc.models import User
-    with Session() as session:
-        user = session.get(User, int(user_id))
+    user = User.query.get(int(user_id))
 
     return user

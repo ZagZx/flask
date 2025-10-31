@@ -4,9 +4,9 @@ from sqlalchemy import String
 from typing import List
 from werkzeug.security import check_password_hash
 
-from mvc.extensions import Base
+from mvc.extensions import db
 
-class User(UserMixin, Base):
+class User(UserMixin, db.Model):
     __tablename__ = "user"
 
     id: Mapped[int] = mapped_column(primary_key=True)

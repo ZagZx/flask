@@ -3,7 +3,7 @@ from sqlalchemy.orm import DeclarativeBase, sessionmaker
 from sqlalchemy import create_engine
 from mvc.config import DATABASE
 
-engine = create_engine(DATABASE)
+engine = create_engine(DATABASE, echo=True)
 Session = sessionmaker(engine)
 
 class Base(DeclarativeBase):

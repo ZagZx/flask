@@ -14,8 +14,8 @@ class User(UserMixin, Base):
     email: Mapped[str] = mapped_column(String(255), unique=True, nullable=False)
     password_hash: Mapped[str] = mapped_column(String(255), nullable=False)
 
-    sold_products: Mapped[List["Product"]] = relationship(back_populates='seller')
-    purchased_products: Mapped[List["Product"]] = relationship(back_populates='purchaser')
+    sold_products: Mapped[List["Product"]] = relationship(back_populates='seller', foreign_keys="Product.seller_id")
+    purchased_products: Mapped[List["Product"]] = relationship(back_populates='purchaser', foreign_keys="Product.purchaser_id")
 
     def check_password(self, password: str):
         return check_password_hash(self.password_hash, password)

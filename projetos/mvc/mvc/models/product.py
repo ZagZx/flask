@@ -14,5 +14,6 @@ class Product(Base):
     seller_id: Mapped[int] = mapped_column(ForeignKey('user.id'), nullable=False)
     purchaser_id: Mapped[int] = mapped_column(ForeignKey('user.id'))
 
-    seller: Mapped["User"] = relationship(back_populates='sold_products')
-    purchaser: Mapped["User"] = relationship(back_populates='purchased_products')
+    seller: Mapped["User"] = relationship(back_populates='sold_products', foreign_keys=[seller_id])
+    purchaser: Mapped["User"] = relationship(back_populates='purchased_products', foreign_keys=[purchaser_id])
+

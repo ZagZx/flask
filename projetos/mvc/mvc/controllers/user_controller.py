@@ -21,7 +21,6 @@ def login():
         password = request.form.get('password')
 
         user:User = User.query.filter_by(email=email).first()
-        print(user)
         if user:
             if user.check_password(password):
                 login_user(user)

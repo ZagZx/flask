@@ -5,7 +5,6 @@ from typing import List
 from werkzeug.security import check_password_hash
 
 from mvc.extensions import Base
-from .product import Product
 
 class User(UserMixin, Base):
     __tablename__ = "user"
@@ -15,7 +14,8 @@ class User(UserMixin, Base):
     email: Mapped[str] = mapped_column(String(255), unique=True, nullable=False)
     password_hash: Mapped[str] = mapped_column(String(255), nullable=False)
 
-    sold_products = Mapped[List[Product]] = relationship(back_populates='seller')
+    sold_products: Mapped[List["Product"]] = relationship(back_populates='seller')
+    purchased_products: Mapped[List["Product"]] = relationship(back_populates='purchaser')
 
     def check_password(self, password: str):
         return check_password_hash(self.password_hash, password)

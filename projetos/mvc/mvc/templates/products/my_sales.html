@@ -1,5 +1,28 @@
 {% extends "base.html" %}
 
 {% block main %}
+<h3 class="mb-4">Minhas Vendas</h3>
+
+{% if products and products|length > 0 %}
+<div class="row g-4">
+    {% for product in products %}
+    <div class="col-12 col-md-6 col-lg-4">
+        <div class="card h-100 shadow-sm">
+            <div class="card-body d-flex flex-column">
+                <h5 class="card-title">{{ product.name }}</h5>
+                <p class="card-text text-muted small mb-3">{{ product.description }}</p>
+
+                <div class="mt-auto">
+                    <p class="h6 mb-1 text-primary">R${{ ('%.2f' % product.price) if product.price is not none else product.price }}</p>
+                    <p class="mb-0"><small class="text-muted">Comprado por: {{ product.purchaser.username }}</small></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+    <div class="alert alert-info">Você ainda não vendeu nenhum produto.</div>
+{% endif %}
 
 {% endblock main %}

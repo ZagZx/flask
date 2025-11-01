@@ -25,10 +25,10 @@
                     </li>
                     {% if current_user.is_authenticated %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('index') }}">Meus Pedidos</a>
+                        <a class="nav-link" href="{{ url_for('product.my_orders') }}">Meus Pedidos</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('index') }}">Minhas Vendas</a>
+                        <a class="nav-link" href="{{ url_for('product.my_sales') }}">Minhas Vendas</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url_for('product.sell') }}">Vender Produto</a>

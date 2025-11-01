@@ -2,7 +2,9 @@ from flask import Blueprint, render_template, request, flash, redirect, url_for
 from flask_login import login_required, current_user
 
 from mvc.extensions import db
-from mvc.models import Product
+from mvc.models import Product, User
+
+current_user: User
 
 product_bp = Blueprint('product', __name__)
 
@@ -24,12 +26,14 @@ def sell():
 
     return render_template('products/sell.html')
 
-@product_bp.route('/meus_pedidos')
+@product_bp.route('/meus-pedidos')
 @login_required
 def my_orders():
     return render_template('products/my_orders.html')
 
-@product_bp.route('/minhas_vendas')
+@product_bp.route('/minhas-vendas')
 @login_required
 def my_sales():
-    return render_template('products/my_sales.html')
+    products: list[Product] = current_user.sold_products
+
+    return render_template('products/my_sales.html', products=products)

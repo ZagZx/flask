@@ -17,11 +17,17 @@
                     <p class="mb-0"><small class="text-muted">Vendido por: {{ product.seller.username }}</small></p>
                 </div>
 
+                {% if product.seller == current_user %}
+                <div class="d-grid">
+                    <button class="btn disabled btn-outline-danger">Você não pode comprar seu próprio produto</button>
+                </div>
+                {% else %}
                 <form action="{{ url_for('product.buy', id=product.id) }}" method="post" class="mt-auto">
                     <div class="d-grid">
                         <button type="submit" class="btn btn-success">Comprar</button>
                     </div>
                 </form>
+                {% endif %}
             </div>
         </div>
     </div>

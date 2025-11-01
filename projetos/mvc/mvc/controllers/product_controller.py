@@ -26,10 +26,23 @@ def sell():
 
     return render_template('products/sell.html')
 
+@product_bp.route('/comprar/<int:id>', methods=['POST'])
+@login_required
+def buy(id):
+    product: Product = Product.query.get(id)
+    product.purchaser = current_user
+    product.avaliable = False
+    
+    db.session.commit()
+
+    return redirect(url_for('index'))
+
 @product_bp.route('/meus-pedidos')
 @login_required
 def my_orders():
-    return render_template('products/my_orders.html')
+    products: list[Product] = Product.query.where(Product.purchaser == current_user).all()
+
+    return render_template('products/my_orders.html', products=products)
 
 @product_bp.route('/minhas-vendas')
 @login_required

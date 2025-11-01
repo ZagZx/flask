@@ -1,6 +1,7 @@
 from flask import Flask, render_template
 from mvc.extensions import login_manager, db, init_db
 from mvc.config import SECRET_KEY, DATABASE
+from mvc.models import Product
 
 app = Flask(__name__)
 app.secret_key = SECRET_KEY
@@ -13,8 +14,9 @@ init_db(app)
 
 @app.route('/')
 def index():
-    
-    return render_template('index.html')
+    products: list[Product] = Product.query.where(Product.avaliable == True).all()
+
+    return render_template('index.html', products=products)
 
 from mvc.controllers import user_bp, product_bp
 

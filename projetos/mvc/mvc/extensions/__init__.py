@@ -13,6 +13,9 @@ def init_db(app: Flask):
         db.create_all()
 
 login_manager = LoginManager()
+login_manager.login_view = 'user.login'
+login_manager.login_message = 'Faça login para realizar essa ação'
+login_manager.login_message_category = 'warning'
 @login_manager.user_loader
 def load_user(user_id):
     from mvc.models import User
